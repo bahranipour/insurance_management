@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}لیست بیمه‌نامه‌ها{% endblock %}
+
+{% block content %}
+<div class="container-fluid" dir="rtl">
+    <h1 class="text-center">لیست بیمه‌نامه‌ها</h1>
+    <hr>
+<a href="{% url 'policy-create' %}" class="btn btn-primary mb-3 float-right">بیمه‌نامه جدید</a>
+<table class="table table-bordered bg-white text-center">
+    <thead>
+        <tr class="bg-info text-white">
+            <th>نوع بیمه‌نامه</th>
+            <th>مشتری</th>
+            <th>تاریخ شروع</th>
+            <th>تاریخ پایان</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for policy in policies %}
+        <tr>
+            <td>{{ policy.get_policy_type_display }}</td>
+            <td>{{ policy.customer.first_name }} {{ policy.customer.last_name }}</td>
+            <td>{{ policy.start_date }}</td>
+            <td>{{ policy.end_date }}</td>
+            <td>
+                <a href="{% url 'policy-update' policy.id %}" class="btn btn-sm btn-warning">ویرایش</a>
+                <a href="{% url 'policy-delete' policy.id %}" class="btn btn-sm btn-danger">حذف</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page=1">اولین صفحه</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"> صفحه قبل</a></li>
+    {% endif %}
+    <li class="page-item"><a class="page-link">صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}</a></li>
+    {% if page_obj.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">صفحه بعد</a></li>
+    <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">آخرین صفحه</a></li>
+    {% endif %}
+    
+</ul>
+</div>
+
+{% endblock %}

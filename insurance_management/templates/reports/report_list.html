@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}لیست گزارش‌ها{% endblock %}
+
+{% block content %}
+<div class="container-fluid" dir="rtl">
+    <h1 class="text-center">لیست گزارش‌ها</h1>
+<hr>
+<a href="{% url 'report-create' %}" class="btn btn-primary mb-3 float-right">گزارش جدید</a>
+<table class="table table-bordered text-center bg-white">
+    <thead>
+        <tr class="bg-info text-white">
+            <th>نوع گزارش</th>
+            <th>تاریخ ایجاد</th>
+            <th>ایجاد کننده</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for report in reports %}
+        <tr>
+            <td>{{ report.get_report_type_display }}</td>
+            <td>{{ report.generated_at }}</td>
+            <td>{{ report.generated_by.username }}</td>
+            <td>
+                <a href="{% url 'report-update' report.id %}" class="btn btn-sm btn-warning">ویرایش</a>
+                <a href="{% url 'report-delete' report.id %}" class="btn btn-sm btn-danger">حذف</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page=1">اولین صفحه</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"> صفحه قبل</a></li>
+    {% endif %}
+    <li class="page-item"><a class="page-link">صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}</a></li>
+    {% if page_obj.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">صفحه بعد</a></li>
+    <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">آخرین صفحه</a></li>
+    {% endif %}
+    
+</ul>
+</div>
+
+{% endblock %}

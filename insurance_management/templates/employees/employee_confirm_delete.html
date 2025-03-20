@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}حذف کارمند{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-8 col-sm-10 mx-auto">
+            <div class="card" dir="rtl">
+                <div class="card-header text-center text-white bg-danger">
+                    <h3>حذف کارمند</h3>
+                </div>
+                <div class="card-body">
+                    <h4 class="text-right">آیا مطمئن هستید که می‌خواهید این کارمند را حذف کنید؟</h4>
+                    <p class="text-right">نام و نام خانوادگی : {{ employee.first_name }} {{ employee.last_name }}</p>
+                    <p class="text-right">پست سازمانی : {{ employee.position}}</p>
+                    <p class="text-right">شماره تماس : {{ employee.phone_number }}</p>
+                    <p class="text-right">ایمیل : {{ employee.email }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger float-right">حذف</button>
+    <a href="{% url 'employee-list' %}" class="btn btn-secondary float-left">لغو</a>
+</form>
+{% endblock %}

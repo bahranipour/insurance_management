@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags%}
+{% block title %}حذف مشتری{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-8 col-sm-10 mx-auto">
+            <div class="card" dir="rtl">
+                <div class="card-header bg-danger text-white text-center">
+                   <h3>حذف مشتری</h3>
+                </div>
+                <div class="card-body">
+                    <h4 class="text-right">آیا مطمئن هستید که می‌خواهید این مشتری را حذف کنید؟</h4>
+                    <p class="text-right">نام و نام خانوادگی: {{ customer.first_name }} {{ customer.last_name }}</p>
+                    <p class="text-right">شماره ملی : {{ customer.national_id }}</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger float-right">حذف</button>
+                        <a href="{% url 'customer-list' %}" class="btn btn-secondary float-left">لغو</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

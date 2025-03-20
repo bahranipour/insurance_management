@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}حذف گزارش{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-8 col-sm-10 mx-auto">
+            <div class="card" dir="rtl">
+                <div class="card-header bg-danger text-center text-white">
+                    <h3>حذف گزارش</h3>
+                </div>
+                <div class="card-body text-right">
+                    <h4>آیا مطمئن هستید که می‌خواهید این گزارش را حذف کنید؟</h4>
+                    <p> نوع گزارش : {{ report.report_type }} </p>
+                    <p>تولید شده در تاریخ :  {{ report.generated_at }}</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger float-right">حذف</button>
+                        <a href="{% url 'report-list' %}" class="btn btn-secondary float-left">لغو</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
