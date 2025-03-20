@@ -1,4 +1,4 @@
-Insurance management with django
+# Insurance management with django
 ------------------------
-# username = admin
-# password = f12345678
+## username = admin
+## password = f12345678
